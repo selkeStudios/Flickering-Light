@@ -7,12 +7,6 @@
 [attr]lfs filter=lfs diff=lfs merge=binary -text
 [attr]lfstext filter=lfs diff=lfstext merge=lfstext -text
 
-# Unreal Engine file types.
-*.uasset lock
-*.umap lock
-*.locres lfs
-*.locmeta lfs
-
 # Steam Audio files
 *.phononscene lfs
 *.probebox lfs
@@ -36,4 +30,5 @@
 *.ico lfs
 *.icns lfs
 # Movies
+
 *.bk2 lfs
