@@ -1,0 +1,10 @@
+{
+	"SourceFiles": [
+		"C:\\Users\\selke\\OneDrive\\Documents\\Unreal Projects\\ProjectFirstClass 5.3 5.4 5.6\\Intermediate\\Source\\ProjectFirstClass_2.Build.cs",
+		"C:\\Users\\selke\\OneDrive\\Documents\\Unreal Projects\\ProjectFirstClass 5.3 5.4 5.6\\Intermediate\\Source\\ProjectFirstClass_2.Target.cs",
+		"C:\\Users\\selke\\OneDrive\\Documents\\Unreal Projects\\ProjectFirstClass 5.3 5.4 5.6\\Intermediate\\Source\\ProjectFirstClass_2Client.Target.cs",
+		"C:\\Users\\selke\\OneDrive\\Documents\\Unreal Projects\\ProjectFirstClass 5.3 5.4 5.6\\Intermediate\\Source\\ProjectFirstClass_2Editor.Target.cs",
+		"C:\\Users\\selke\\OneDrive\\Documents\\Unreal Projects\\ProjectFirstClass 5.3 5.4 5.6\\Intermediate\\Source\\ProjectFirstClass_2Server.Target.cs"
+	],
+	"EngineVersion": "5.6.1"
+}

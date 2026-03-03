@@ -1,0 +1,4 @@
+com.SelkeStudios.FlickeringLight
+15
+1.0
+name='com.epicgames.unreal.GameActivity.AppType' value=''

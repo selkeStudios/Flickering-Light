@@ -1,0 +1,1591 @@
+# The proguard configuration file for the following section is Z:\app\build\intermediates\default_proguard_files\global\proguard-android.txt-8.5.2
+# This is a configuration file for ProGuard.
+# http://proguard.sourceforge.net/index.html#manual/usage.html
+#
+# Starting with version 2.2 of the Android plugin for Gradle, this file is distributed together with
+# the plugin and unpacked at build-time. The files in $ANDROID_HOME are no longer maintained and
+# will be ignored by new version of the Android plugin for Gradle.
+
+# Optimization is turned off by default. Dex does not like code run
+# through the ProGuard optimize steps (and performs some
+# of these optimizations on its own).
+# Note that if you want to enable optimization, you cannot just
+# include optimization flags in your own project configuration file;
+# instead you will need to point to the
+# "proguard-android-optimize.txt" file instead of this one from your
+# project.properties file.
+-dontoptimize
+
+# Preserve some attributes that may be required for reflection.
+-keepattributes AnnotationDefault,
+                EnclosingMethod,
+                InnerClasses,
+                RuntimeVisibleAnnotations,
+                RuntimeVisibleParameterAnnotations,
+                RuntimeVisibleTypeAnnotations,
+                Signature
+
+-keep public class com.google.vending.licensing.ILicensingService
+-keep public class com.android.vending.licensing.ILicensingService
+-keep public class com.google.android.vending.licensing.ILicensingService
+-dontnote com.android.vending.licensing.ILicensingService
+-dontnote com.google.vending.licensing.ILicensingService
+-dontnote com.google.android.vending.licensing.ILicensingService
+
+# For native methods, see https://www.guardsquare.com/manual/configuration/examples#native
+-keepclasseswithmembernames,includedescriptorclasses class * {
+    native <methods>;
+}
+
+# Keep setters in Views so that animations can still work.
+-keepclassmembers public class * extends android.view.View {
+    void set*(***);
+    *** get*();
+}
+
+# We want to keep methods in Activity that could be used in the XML attribute onClick.
+-keepclassmembers class * extends android.app.Activity {
+    public void *(android.view.View);
+}
+
+# For enumeration classes, see https://www.guardsquare.com/manual/configuration/examples#enumerations
+-keepclassmembers enum * {
+    public static **[] values();
+    public static ** valueOf(java.lang.String);
+}
+
+-keepclassmembers class * implements android.os.Parcelable {
+    public static final ** CREATOR;
+}
+
+# Preserve annotated Javascript interface methods.
+-keepclassmembers class * {
+    @android.webkit.JavascriptInterface <methods>;
+}
+
+# The support libraries contains references to newer platform versions.
+# Don't warn about those in case this app is linking against an older
+# platform version. We know about them, and they are safe.
+-dontnote android.support.**
+-dontnote androidx.**
+-dontwarn android.support.**
+-dontwarn androidx.**
+
+# Understand the @Keep support annotation.
+-keep class android.support.annotation.Keep
+
+-keep @android.support.annotation.Keep class * {*;}
+
+-keepclasseswithmembers class * {
+    @android.support.annotation.Keep <methods>;
+}
+
+-keepclasseswithmembers class * {
+    @android.support.annotation.Keep <fields>;
+}
+
+-keepclasseswithmembers class * {
+    @android.support.annotation.Keep <init>(...);
+}
+
+# These classes are duplicated between android.jar and org.apache.http.legacy.jar.
+-dontnote org.apache.http.**
+-dontnote android.net.http.**
+
+# These classes are duplicated between android.jar and core-lambda-stubs.jar.
+-dontnote java.lang.invoke.**
+
+# End of content from Z:\app\build\intermediates\default_proguard_files\global\proguard-android.txt-8.5.2
+# The proguard configuration file for the following section is Z:\app\proguard-rules.pro
+# To enable ProGuard in your project, edit project.properties
+# to define the proguard.config property as described in that file.
+#
+# Add project specific ProGuard rules here.
+# By default, the flags in this file are appended to flags specified
+# in ${sdk.dir}/tools/proguard/proguard-android.txt
+# You can edit the include path and order by changing the ProGuard
+# include property in project.properties.
+#
+# For more details, see
+#   http://developer.android.com/guide/developing/tools/proguard.html
+
+# Add any project specific keep options here:
+
+# Needed to keep the JNI functions around
+-keepclassmembers class com.epicgames.unreal.GameActivity {
+	public *;
+}
+-keep class * extends android.media.MediaPlayer {
+	public *;
+}
+-keep class com.epicgames.unreal.MediaPlayer14 {
+	public *;
+}
+-keep class com.epicgames.unreal.VideoDecoder {
+	public *;
+}
+-keep class com.epicgames.unreal.AudioDecoder {
+	public *;
+}
+-keep class com.epicgames.unreal.MessageBox01 {
+	public *;
+}
+-keep class com.epicgames.unreal.WebViewControl {
+	public *;
+}
+-keep class com.epicgames.unreal.BatteryReceiver {
+	public *;
+}
+-keep class com.epicgames.unreal.HeadsetReceiver {
+	public *;
+}
+-keep class com.epicgames.unreal.VolumeReceiver {
+	public *;
+}
+-keep class com.epicgames.unreal.LocalNotificationReceiver {
+	public *;
+}
+-keep class com.epicgames.unreal.CellularReceiver {
+	public *;
+}
+-keep class com.epicgames.unreal.MulticastBroadcastReceiver {
+	public *;
+}
+-keep class com.epicgames.unreal.GameControllerManager {
+	public *;
+}
+-keep class com.epicgames.unreal.BitmapRendererImageReader {
+	public *;
+}
+-keep class com.epicgames.unreal.BitmapRendererLegacy {
+	public *;
+}
+-keep class com.epicgames.unreal.BitmapRenderer$FrameData {
+	public *;
+}
+# Needed...
+
+-keep class com.epicgames.unreal.GameActivity$LaunchNotification {
+	public *;
+}
+
+-keep class com.epicgames.unreal.GameActivity$InputDeviceInfo {
+	public *;
+}
+-keep class com.epicgames.unreal.GameActivity$JavaAchievement {
+	public *;
+}
+-keep class com.epicgames.unreal.MediaPlayer14$FrameUpdateInfo {
+	public *;
+}
+-keep class com.epicgames.unreal.MediaPlayer14$AudioTrackInfo {
+	public *;
+}
+-keep class com.epicgames.unreal.MediaPlayer14$CaptionTrackInfo {
+	public *;
+}
+-keep class com.epicgames.unreal.MediaPlayer14$VideoTrackInfo {
+	public *;
+}
+
+-keep class com.epicgames.unreal.WebViewControl {
+	public *;
+}
+-keep class com.epicgames.unreal.WebViewControl$ViewClient {
+	public *;
+}
+-keep class com.epicgames.unreal.WebViewControl$ChromeClient {
+	public *;
+}
+
+-keep class com.epicgames.unreal.WebViewControl$ViewClient {
+	public *;
+}
+
+-keep class com.epicgames.unreal.WebViewControl$ChromeClient {
+	public *;
+}
+
+-keep class com.epicgames.unreal.WebViewControl$FrameUpdateInfo {
+	public *;
+}
+
+-keep class com.epicgames.unreal.VideoDecoder$FrameUpdateInfo {
+	public *;
+}
+
+# If your project uses WebView with JS, uncomment the following
+# and specify the fully qualified class name to the JavaScript interface
+# class:
+#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#   public *;
+#}
+
+# Proguard flags for consumers of the Google Play services SDK
+# https://developers.google.com/android/guides/setup#add_google_play_services_to_your_project
+
+-keep class * extends java.util.ListResourceBundle {
+	protected Object[][] getContents();
+}
+
+# Keep SafeParcelable value, needed for reflection. This is required to support backwards
+# compatibility of some classes.
+-keep public class com.google.android.gms.common.internal.safeparcel.SafeParcelable {
+	public static final *** NULL;
+}
+
+# Needed for Parcelable/SafeParcelable classes & their creators to not get renamed, as they are
+# found via reflection.
+-keepnames class * implements android.os.Parcelable
+-keepclassmembers class * implements android.os.Parcelable {
+	public static final *** CREATOR;
+}
+
+# Keep the classes/members we need for client functionality.
+-keep @interface androidx.annotation.Keep
+-keep @androidx.annotation.Keep class *
+-keepclasseswithmembers class * {
+	@androidx.annotation.Keep <fields>;
+}
+-keepclasseswithmembers class * {
+	@androidx.annotation.Keep <methods>;
+}
+
+# Keep the names of classes/members we need for client functionality.
+-keep @interface com.google.android.gms.common.annotation.KeepName
+-keepnames @com.google.android.gms.common.annotation.KeepName class *
+-keepclassmembernames class * {
+	@com.google.android.gms.common.annotation.KeepName *;
+}
+
+# Keep Dynamite API entry points
+-keep @interface com.google.android.gms.common.util.DynamiteApi
+-keep public @com.google.android.gms.common.util.DynamiteApi class * {
+	public <fields>;
+	public <methods>;
+}
+
+# Keep @UsedByReflection and @UsedByNative
+-keep class com.google.android.apps.common.proguard.UsedBy*
+-keep @com.google.android.apps.common.proguard.UsedBy* class *
+-keepclassmembers class * {
+	@com.google.android.apps.common.proguard.UsedBy* *;
+}
+
+# Needed when building against pre-Marshmallow SDK.
+-dontwarn android.security.NetworkSecurityPolicy
+
+# Needed when building against Marshmallow SDK.
+-dontwarn android.app.Notification
+
+# End Google Play services requirements
+
+# Additional Google Play Services that seems to be needed
+-keep class com.google.android.gms.games.NativeSdkCallbacks {
+	*;
+}
+-keep public class com.google.android.gms.**
+{
+	public *;
+}
+-dontwarn com.google.android.gms.**
+
+# Google Play Admob
+-keep public class com.google.android.gms.ads.** {
+	public *;
+}
+
+-keep public class com.google.ads.** {
+	public *;
+}
+
+# Google Play Billing Services for In-App Purchases
+-keep class com.android.vending.billing.** {
+	*;
+}
+
+-keep class com.android.vending.licensing.** {
+	*;
+}
+
+-keep class com.google.vending.licensing.** {
+	*;
+}
+
+-keep class epicgames.ue4.StoreHelper.** {
+	public *;
+}
+
+-keep class epicgames.ue4.GooglePlayStoreHelper.** {
+	public *;
+}
+
+-keep class com.epicgames.unreal.psoservices.PSOProgramServiceAccessor$JNIProgramLinkResponse 
+{
+	*;
+}
+
+-keepclassmembers, allowoptimization class com.epicgames.unreal.psoservices.PSOProgramServiceAccessor
+{
+    public static *** AndroidThunkJava_*(...);
+}
+
+-dontwarn com.google.vr.cardboard.AndroidNCompat
+-dontwarn com.google.vr.cardboard.StoragePermissionUtils
+-dontwarn sun.misc.Unsafe
+			-keep class com.google.vr.sdk.samples.permission.** {
+				*;
+			}
+					-keep class com.epicgames.unreal.androidprofiling.ProfilerAccessor {
+					public *;
+					}
+
+# End of content from Z:\app\proguard-rules.pro
+# The proguard configuration file for the following section is Z:\app\proguard\common.pgcfg
+# Copyright 2018 Google LLC
+#
+# The Google Play Core Library is licensed to you under the Play Core Software
+# Development Kit Terms of Service
+# (https://developer.android.com/guide/playcore/license.html).
+# By using the Google Play Core Library, you agree to the Play Core Software
+# Development Kit Terms of Service.
+
+# Play Core Proguard Rules: Play Core Common (always include this config)
+
+-keep class com.google.android.play.core.common.IntentSenderForResultStarter {
+    public void startIntentSenderForResult(android.content.IntentSender, int, android.content.Intent, int, int, int, android.os.Bundle);
+}
+
+-keep class com.google.android.play.core.common.LocalTestingException {
+}
+
+-keep class com.google.android.play.core.listener.StateUpdatedListener {
+    public abstract void onStateUpdate(java.lang.Object);
+}
+
+-dontwarn com.google.android.gms.common.**
+# End of content from Z:\app\proguard\common.pgcfg
+# The proguard configuration file for the following section is Z:\app\proguard\app_update.pgcfg
+# Copyright 2018 Google LLC
+#
+# The Google Play Core Library is licensed to you under the Play Core Software
+# Development Kit Terms of Service
+# (https://developer.android.com/guide/playcore/license.html).
+# By using the Google Play Core Library, you agree to the Play Core Software
+# Development Kit Terms of Service.
+
+# Play Core Proguard Rules: Play In-app Update
+
+-keep class com.google.android.play.core.appupdate.AppUpdateInfo {
+    public java.lang.String packageName();
+    public int availableVersionCode();
+    public int updateAvailability();
+    public int installStatus();
+    public boolean isUpdateTypeAllowed(com.google.android.play.core.appupdate.AppUpdateOptions);
+    public boolean isUpdateTypeAllowed(int);
+    public int updatePriority();
+    public long bytesDownloaded();
+    public long totalBytesToDownload();
+    public java.lang.Integer clientVersionStalenessDays();
+    public java.util.Set getFailedUpdatePreconditions(com.google.android.play.core.appupdate.AppUpdateOptions);
+}
+
+-keep class com.google.android.play.core.appupdate.AppUpdateManager {
+    public abstract void registerListener(com.google.android.play.core.install.InstallStateUpdatedListener);
+    public abstract void unregisterListener(com.google.android.play.core.install.InstallStateUpdatedListener);
+
+    public abstract com.google.android.gms.tasks.Task completeUpdate();
+    public abstract com.google.android.gms.tasks.Task getAppUpdateInfo();
+    public com.google.android.gms.tasks.Task startUpdateFlow(com.google.android.play.core.appupdate.AppUpdateInfo, android.app.Activity, com.google.android.play.core.appupdate.AppUpdateOptions);
+    public boolean startUpdateFlowForResult(com.google.android.play.core.appupdate.AppUpdateInfo, int, android.app.Activity, int);
+    public boolean startUpdateFlowForResult(com.google.android.play.core.appupdate.AppUpdateInfo, int, com.google.android.play.core.common.IntentSenderForResultStarter, int);
+    public boolean startUpdateFlowForResult(com.google.android.play.core.appupdate.AppUpdateInfo, android.app.Activity, com.google.android.play.core.appupdate.AppUpdateOptions, int);
+    public boolean startUpdateFlowForResult(com.google.android.play.core.appupdate.AppUpdateInfo, com.google.android.play.core.common.IntentSenderForResultStarter, com.google.android.play.core.appupdate.AppUpdateOptions, int);
+    public boolean startUpdateFlowForResult(com.google.android.play.core.appupdate.AppUpdateInfo, androidx.activity.result.ActivityResultLauncher, com.google.android.play.core.appupdate.AppUpdateOptions);
+}
+
+-keep class com.google.android.play.core.appupdate.AppUpdateManagerFactory {
+    <init>();
+
+    public static com.google.android.play.core.appupdate.AppUpdateManager create(android.content.Context);
+}
+
+-keep class com.google.android.play.core.appupdate.AppUpdateOptions {
+    public abstract boolean allowAssetPackDeletion();
+    public abstract int appUpdateType();
+    public static com.google.android.play.core.appupdate.AppUpdateOptions$Builder newBuilder(int);
+    public static com.google.android.play.core.appupdate.AppUpdateOptions defaultOptions(int);
+}
+
+-keep class com.google.android.play.core.appupdate.AppUpdateOptions$Builder {
+    public abstract com.google.android.play.core.appupdate.AppUpdateOptions$Builder setAllowAssetPackDeletion(boolean);
+    public abstract com.google.android.play.core.appupdate.AppUpdateOptions$Builder setAppUpdateType(int);
+    public abstract com.google.android.play.core.appupdate.AppUpdateOptions build();
+}
+
+-keep class com.google.android.play.core.appupdate.testing.FakeAppUpdateManager {
+    public <init>(android.content.Context);
+
+    public void registerListener(com.google.android.play.core.install.InstallStateUpdatedListener);
+    public void unregisterListener(com.google.android.play.core.install.InstallStateUpdatedListener);
+
+    public com.google.android.gms.tasks.Task completeUpdate();
+    public com.google.android.gms.tasks.Task getAppUpdateInfo();
+    public boolean startUpdateFlowForResult(com.google.android.play.core.appupdate.AppUpdateInfo, int, android.app.Activity, int);
+    public boolean startUpdateFlowForResult(com.google.android.play.core.appupdate.AppUpdateInfo, int, com.google.android.play.core.common.IntentSenderForResultStarter, int);
+    public boolean startUpdateFlowForResult(com.google.android.play.core.appupdate.AppUpdateInfo, androidx.activity.result.ActivityResultLauncher, com.google.android.play.core.appupdate.AppUpdateOptions);
+
+    public void setUpdateAvailable(int);
+    public void setUpdateAvailable(int, int);
+    public void setUpdateNotAvailable();
+    public void setInstallErrorCode(int);
+
+    public void userAcceptsUpdate();
+    public void userRejectsUpdate();
+
+    public void downloadStarts();
+    public void downloadCompletes();
+    public void userCancelsDownload();
+    public void downloadFails();
+
+    public void installCompletes();
+    public void installFails();
+
+    public boolean isConfirmationDialogVisible();
+    public boolean isImmediateFlowVisible();
+    public boolean isInstallSplashScreenVisible();
+    public java.lang.Integer getTypeForUpdateInProgress();
+
+    public void setClientVersionStalenessDays(java.lang.Integer);
+    public void setTotalBytesToDownload(long);
+    public void setBytesDownloaded(long);
+    public void setUpdatePriority(int);
+}
+
+-keep class com.google.android.play.core.install.InstallException {
+    public int getErrorCode();
+}
+
+-keep class com.google.android.play.core.install.InstallState {
+    public int installErrorCode();
+    public int installStatus();
+    public java.lang.String packageName();
+    public long bytesDownloaded();
+    public long totalBytesToDownload();
+}
+
+-keep class com.google.android.play.core.install.InstallStateUpdatedListener {
+   <init>();
+
+   public void onStateUpdate(com.google.android.play.core.install.InstallState);
+}
+
+-keep class com.google.android.play.core.install.NativeInstallStateUpdateListener {
+    <init>();
+
+    public void onStateUpdate(com.google.android.play.core.install.InstallState);
+}
+
+-keep class com.google.android.play.core.install.model.ActivityResult {
+    public static int RESULT_IN_APP_UPDATE_FAILED;
+}
+
+-keep class com.google.android.play.core.install.model.AppUpdateType {
+    public static int FLEXIBLE;
+    public static int IMMEDIATE;
+}
+
+-keep class com.google.android.play.core.install.model.InstallErrorCode {
+    public static int NO_ERROR;
+    public static int NO_ERROR_PARTIALLY_ALLOWED;
+    public static int ERROR_API_NOT_AVAILABLE;
+    public static int ERROR_APP_NOT_OWNED;
+    public static int ERROR_DOWNLOAD_NOT_PRESENT;
+    public static int ERROR_INSTALL_NOT_ALLOWED;
+    public static int ERROR_INSTALL_UNAVAILABLE;
+    public static int ERROR_INTERNAL_ERROR;
+    public static int ERROR_INVALID_REQUEST;
+    public static int ERROR_PLAY_STORE_NOT_FOUND;
+    public static int ERROR_UNKNOWN;
+}
+
+-keep class com.google.android.play.core.install.model.InstallStatus {
+    public static int CANCELED;
+    public static int DOWNLOADED;
+    public static int DOWNLOADING;
+    public static int FAILED;
+    public static int INSTALLED;
+    public static int INSTALLING;
+    public static int PENDING;
+    public static int REQUIRES_UI_INTENT;
+    public static int UNKNOWN;
+}
+
+-keep class com.google.android.play.core.install.model.UpdateAvailability {
+    public static int UNKNOWN;
+    public static int UPDATE_AVAILABLE;
+    public static int UPDATE_NOT_AVAILABLE;
+    public static int DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS;
+}
+
+-keep class com.google.android.play.core.install.model.UpdatePrecondition {
+    public static int UNKNOWN;
+    public static int CANNOT_DISPLAY;
+    public static int NEED_STORE_TO_PROCEED;
+    public static int INSUFFICIENT_STORAGE;
+    public static int DEVICE_STATUS;
+    public static int APP_VERSION_FRESH;
+}
+
+# End of content from Z:\app\proguard\app_update.pgcfg
+# The proguard configuration file for the following section is Z:\app\proguard\asset_delivery.pgcfg
+# Copyright 2019 Google LLC
+#
+# The Google Play Core Library is licensed to you under the Play Core Software
+# Development Kit Terms of Service
+# (https://developer.android.com/guide/playcore/license.html).
+# By using the Google Play Core Library, you agree to the Play Core Software
+# Development Kit Terms of Service.
+
+# Play Core Proguard Rules: Play Asset Delivery for asset packs
+
+-keep class com.google.android.play.core.assetpacks.AssetLocation {
+    public long offset();
+    public java.lang.String path();
+    public long size();
+    public java.lang.String toString();
+}
+
+-keep class com.google.android.play.core.assetpacks.AssetPackState {
+    public long bytesDownloaded();
+    public int transferProgressPercentage();
+    public int errorCode();
+    public java.lang.String name();
+    public int status();
+    public java.lang.String toString();
+    public long totalBytesToDownload();
+    public int updateAvailability();
+    public java.lang.String availableVersionTag();
+    public java.lang.String installedVersionTag();
+}
+
+-keep class com.google.android.play.core.assetpacks.AssetPackStates {
+    public java.util.Map packStates();
+    public java.lang.String toString();
+    public long totalBytes();
+}
+
+-keep class com.google.android.play.core.assetpacks.model.AssetPackErrorCode {
+    public static int ACCESS_DENIED;
+    public static int API_NOT_AVAILABLE;
+    public static int APP_NOT_OWNED;
+    public static int APP_UNAVAILABLE;
+    public static int CONFIRMATION_NOT_REQUIRED;
+    public static int DOWNLOAD_NOT_FOUND;
+    public static int INSUFFICIENT_STORAGE;
+    public static int INTERNAL_ERROR;
+    public static int INVALID_REQUEST;
+    public static int NETWORK_ERROR;
+    public static int NO_ERROR;
+    public static int PACK_UNAVAILABLE;
+    public static int UNRECOGNIZED_INSTALLATION;
+}
+
+-keep class com.google.android.play.core.assetpacks.AssetPackException {
+    public int getErrorCode();
+}
+
+-keep class com.google.android.play.core.assetpacks.AssetPackLocation {
+    public java.lang.String assetsPath();
+    public int packStorageMethod();
+    public java.lang.String path();
+    public java.lang.String toString();
+}
+
+-keep class com.google.android.play.core.assetpacks.AssetPackManager {
+    public com.google.android.play.core.assetpacks.AssetPackStates cancel(java.util.List);
+    public void clearListeners();
+    public com.google.android.play.core.assetpacks.AssetLocation getAssetLocation(java.lang.String, java.lang.String);
+    public com.google.android.play.core.assetpacks.AssetPackLocation getPackLocation(java.lang.String);
+    public java.util.Map getPackLocations();
+    public com.google.android.gms.tasks.Task getPackStates(java.util.List);
+    public com.google.android.gms.tasks.Task fetch(java.util.List);
+    public void registerListener(com.google.android.play.core.assetpacks.AssetPackStateUpdateListener);
+    public com.google.android.gms.tasks.Task removePack(java.lang.String);
+    public com.google.android.gms.tasks.Task showCellularDataConfirmation(android.app.Activity);
+    public boolean showCellularDataConfirmation(androidx.activity.result.ActivityResultLauncher);
+    public com.google.android.gms.tasks.Task showConfirmationDialog(android.app.Activity);
+    public boolean showConfirmationDialog(androidx.activity.result.ActivityResultLauncher);
+    public void unregisterListener(com.google.android.play.core.assetpacks.AssetPackStateUpdateListener);
+}
+
+-keep class com.google.android.play.core.assetpacks.AssetPackManagerFactory {
+    <init>();
+
+    public static com.google.android.play.core.assetpacks.AssetPackManager getInstance(android.content.Context);
+}
+
+-keep class com.google.android.play.core.assetpacks.AssetPackStateUpdateListener {
+    public void onStateUpdate(com.google.android.play.core.assetpacks.AssetPackState);
+}
+
+-keep class com.google.android.play.core.assetpacks.model.AssetPackStatus {
+    public static int CANCELED;
+    public static int COMPLETED;
+    public static int DOWNLOADING;
+    public static int FAILED;
+    public static int NOT_INSTALLED;
+    public static int PENDING;
+    public static int REQUIRES_USER_CONFIRMATION;
+    public static int TRANSFERRING;
+    public static int UNKNOWN;
+    public static int WAITING_FOR_WIFI;
+}
+
+-keep class com.google.android.play.core.assetpacks.model.AssetPackStorageMethod {
+    public static int APK_ASSETS;
+    public static int STORAGE_FILES;
+}
+
+-keep class com.google.android.play.core.assetpacks.NativeAssetPackStateUpdateListener {
+    <init>();
+
+    public void onStateUpdate(com.google.android.play.core.assetpacks.AssetPackState);
+}
+
+-keep class com.google.android.play.core.assetpacks.model.AssetPackUpdateAvailability {
+    public static int UNKNOWN;
+    public static int UPDATE_NOT_AVAILABLE;
+    public static int UPDATE_AVAILABLE;
+}
+
+# End of content from Z:\app\proguard\asset_delivery.pgcfg
+# The proguard configuration file for the following section is Z:\app\proguard\gms_task.pgcfg
+# Copyright 2021 Google LLC
+#
+# The Google Play Core Library is licensed to you under the Play Core Software
+# Development Kit Terms of Service
+# (https://developer.android.com/guide/playcore/license.html).
+# By using the Google Play Core Library, you agree to the Play Core Software
+# Development Kit Terms of Service.
+
+# GMS Task Proguard Rules
+# TODO(b/205494027) Update LICENSE information
+
+-keep class com.google.android.gms.tasks.OnCompleteListener {
+    public abstract void onComplete(com.google.android.gms.tasks.Task);
+}
+
+-keep class com.google.android.gms.tasks.OnFailureListener {
+    public abstract void onFailure(java.lang.Exception);
+}
+
+-keep class com.google.android.gms.tasks.OnSuccessListener {
+    public abstract void onSuccess(java.lang.Object);
+}
+
+-keep class com.google.android.gms.tasks.RuntimeExecutionException {
+}
+
+-keep class com.google.android.gms.tasks.Task {
+    <init>();
+
+    public com.google.android.gms.tasks.Task addOnCompleteListener(com.google.android.gms.tasks.OnCompleteListener);
+    public com.google.android.gms.tasks.Task addOnCompleteListener(java.util.concurrent.Executor, com.google.android.gms.tasks.OnCompleteListener);
+    public abstract com.google.android.gms.tasks.Task addOnFailureListener(com.google.android.gms.tasks.OnFailureListener);
+    public abstract com.google.android.gms.tasks.Task addOnFailureListener(java.util.concurrent.Executor, com.google.android.gms.tasks.OnFailureListener);
+    public abstract com.google.android.gms.tasks.Task addOnSuccessListener(com.google.android.gms.tasks.OnSuccessListener);
+    public abstract com.google.android.gms.tasks.Task addOnSuccessListener(java.util.concurrent.Executor, com.google.android.gms.tasks.OnSuccessListener);
+    public abstract java.lang.Exception getException();
+    public abstract java.lang.Object getResult();
+    public abstract java.lang.Object getResult(java.lang.Class);
+    public abstract boolean isComplete();
+    public abstract boolean isSuccessful();
+}
+
+-keep class com.google.android.gms.tasks.TaskExecutors {
+    public static java.util.concurrent.Executor MAIN_THREAD;
+}
+
+-keep class com.google.android.gms.tasks.Tasks {
+    public static java.lang.Object await(com.google.android.gms.tasks.Task);
+    public static java.lang.Object await(com.google.android.gms.tasks.Task, long, java.util.concurrent.TimeUnit);
+    public static com.google.android.gms.tasks.Task whenAll(java.util.Collection);
+}
+
+-keep class com.google.android.gms.tasks.NativeOnCompleteListener {
+    <init>(long);
+
+    public void onComplete(com.google.android.gms.tasks.Task);
+    public void playCoreNativeOnComplete(long, java.lang.Object, bool, bool, java.lang.String);
+}
+
+-keep class com.google.android.gms.common.api.ApiException {
+    public int getStatusCode();
+}
+
+# End of content from Z:\app\proguard\gms_task.pgcfg
+# The proguard configuration file for the following section is Z:\app\proguard\integrity.pgcfg
+# Copyright 2022 Google LLC
+#
+# The Play Integrity API Android library is licensed to you under the Play
+# Integrity API Terms of Service
+# (https://developer.android.com/google/play/integrity/overview#tos).
+# By using the Play Integrity API Android library, you agree to the Play
+# Integrity API Terms of Service.
+
+# Play Integrity API Proguard Rules
+
+-keep class com.google.android.play.core.integrity.IntegrityManager {
+  public abstract com.google.android.gms.tasks.Task requestIntegrityToken(com.google.android.play.core.integrity.IntegrityTokenRequest);
+}
+
+-keep class com.google.android.play.core.integrity.IntegrityManagerFactory {
+  public static com.google.android.play.core.integrity.IntegrityManager create(android.content.Context);
+}
+
+-keep class com.google.android.play.core.integrity.IntegrityTokenRequest {
+  public abstract java.lang.String nonce();
+  public abstract java.lang.Long cloudProjectNumber();
+  public static com.google.android.play.core.integrity.IntegrityTokenRequest$Builder builder();
+}
+
+-keep class com.google.android.play.core.integrity.IntegrityTokenRequest$Builder {
+  public abstract com.google.android.play.core.integrity.IntegrityTokenRequest$Builder setNonce(java.lang.String);
+  public abstract com.google.android.play.core.integrity.IntegrityTokenRequest$Builder setCloudProjectNumber(long);
+  public abstract com.google.android.play.core.integrity.IntegrityTokenRequest build();
+}
+
+-keep class com.google.android.play.core.integrity.IntegrityTokenResponse {
+  public abstract java.lang.String token();
+  public abstract com.google.android.gms.tasks.Task showDialog(android.app.Activity, int);
+}
+
+-keep class com.google.android.play.core.integrity.IntegrityServiceException {
+  public int getErrorCode();
+}
+
+-keep class com.google.android.play.core.integrity.model.IntegrityErrorCode {
+    public static int NO_ERROR;
+    public static int API_NOT_AVAILABLE;
+    public static int PLAY_STORE_NOT_FOUND;
+    public static int NETWORK_ERROR;
+    public static int PLAY_STORE_ACCOUNT_NOT_FOUND;
+    public static int APP_NOT_INSTALLED;
+    public static int PLAY_SERVICES_NOT_FOUND;
+    public static int APP_UID_MISMATCH;
+    public static int TOO_MANY_REQUESTS;
+    public static int CANNOT_BIND_TO_SERVICE;
+    public static int NONCE_TOO_SHORT;
+    public static int NONCE_TOO_LONG;
+    public static int GOOGLE_SERVER_UNAVAILABLE;
+    public static int NONCE_IS_NOT_BASE64;
+    public static int PLAY_STORE_VERSION_OUTDATED;
+    public static int PLAY_SERVICES_VERSION_OUTDATED;
+    public static int CLOUD_PROJECT_NUMBER_IS_INVALID;
+    public static int INTERNAL_ERROR;
+    public static int CLIENT_TRANSIENT_ERROR;
+}
+
+-keep class com.google.android.play.core.integrity.model.IntegrityDialogResponseCode {
+    public static int DIALOG_UNAVAILABLE;
+    public static int DIALOG_FAILED;
+    public static int DIALOG_CANCELLED;
+    public static int DIALOG_SUCCESSFUL;
+}
+
+-keep class com.google.android.play.core.integrity.model.IntegrityDialogTypeCode {
+    public static int GET_LICENSED;
+}
+
+-keep class com.google.android.play.core.integrity.StandardIntegrityManager {
+  public abstract com.google.android.gms.tasks.Task prepareIntegrityToken(com.google.android.play.core.integrity.StandardIntegrityManager$PrepareIntegrityTokenRequest);
+}
+
+-keep class com.google.android.play.core.integrity.StandardIntegrityManager$PrepareIntegrityTokenRequest {
+  public abstract java.lang.long cloudProjectNumber();
+  public static com.google.android.play.core.integrity.StandardIntegrityManager$PrepareIntegrityTokenRequest$Builder builder();
+}
+
+-keep class com.google.android.play.core.integrity.StandardIntegrityManager$PrepareIntegrityTokenRequest$Builder {
+  public abstract com.google.android.play.core.integrity.StandardIntegrityManager$PrepareIntegrityTokenRequest$Builder setCloudProjectNumber(long);
+  public abstract com.google.android.play.core.integrity.StandardIntegrityManager$PrepareIntegrityTokenRequest build();
+}
+
+-keep class com.google.android.play.core.integrity.StandardIntegrityManager$StandardIntegrityTokenRequest {
+  public static com.google.android.play.core.integrity.StandardIntegrityManager$StandardIntegrityTokenRequest$Builder builder();
+}
+
+-keep class com.google.android.play.core.integrity.StandardIntegrityManager$StandardIntegrityTokenRequest$Builder {
+  public abstract com.google.android.play.core.integrity.StandardIntegrityManager$StandardIntegrityTokenRequest$Builder setRequestHash(java.lang.String);
+  public abstract com.google.android.play.core.integrity.StandardIntegrityManager$StandardIntegrityTokenRequest build();
+}
+
+-keep class com.google.android.play.core.integrity.StandardIntegrityManager$StandardIntegrityTokenProvider {
+  public abstract com.google.android.gms.tasks.Task request(com.google.android.play.core.integrity.StandardIntegrityManager$StandardIntegrityTokenRequest);
+}
+
+-keep class com.google.android.play.core.integrity.StandardIntegrityManager$StandardIntegrityToken {
+  public abstract java.lang.String token();
+  public abstract com.google.android.gms.tasks.Task showDialog(android.app.Activity, int);
+}
+
+-keep class com.google.android.play.core.integrity.IntegrityManagerFactory {
+  public static com.google.android.play.core.integrity.StandardIntegrityManager createStandard(android.content.Context);
+}
+
+-keep class com.google.android.play.core.integrity.StandardIntegrityException {
+  public int getErrorCode();
+}
+
+-keep class com.google.android.play.core.integrity.model.StandardIntegrityErrorCode {
+    public static int NO_ERROR;
+    public static int API_NOT_AVAILABLE;
+    public static int PLAY_STORE_NOT_FOUND;
+    public static int NETWORK_ERROR;
+    public static int APP_NOT_INSTALLED;
+    public static int PLAY_SERVICES_NOT_FOUND;
+    public static int APP_UID_MISMATCH;
+    public static int TOO_MANY_REQUESTS;
+    public static int CANNOT_BIND_TO_SERVICE;
+    public static int GOOGLE_SERVER_UNAVAILABLE;
+    public static int PLAY_STORE_VERSION_OUTDATED;
+    public static int PLAY_SERVICES_VERSION_OUTDATED;
+    public static int CLOUD_PROJECT_NUMBER_IS_INVALID;
+    public static int REQUEST_HASH_TOO_LONG;
+    public static int CLIENT_TRANSIENT_ERROR;
+    public static int INTEGRITY_TOKEN_PROVIDER_INVALID;
+    public static int INTERNAL_ERROR;
+}
+
+
+# End of content from Z:\app\proguard\integrity.pgcfg
+# The proguard configuration file for the following section is Z:\app\proguard\review.pgcfg
+# Copyright 2019 Google LLC
+#
+# The Google Play Core Library is licensed to you under the Play Core Software
+# Development Kit Terms of Service
+# (https://developer.android.com/guide/playcore/license.html).
+# By using the Google Play Core Library, you agree to the Play Core Software
+# Development Kit Terms of Service.
+
+# Play Core Proguard Rules: Play In-app Review
+
+-keep class com.google.android.play.core.review.ReviewManager {
+  public com.google.android.gms.tasks.Task requestReviewFlow();
+  public com.google.android.gms.tasks.Task launchReviewFlow(android.app.Activity, com.google.android.play.core.review.ReviewInfo);
+}
+
+-keepnames class com.google.android.play.core.review.ReviewInfo
+
+-keep class com.google.android.play.core.review.ReviewManagerFactory {
+  <init>();
+
+  public static com.google.android.play.core.review.ReviewManager create(android.content.Context);
+}
+
+-keep class com.google.android.play.core.review.testing.FakeReviewManager {
+  public <init>(android.content.Context);
+  public com.google.android.gms.tasks.Task requestReviewFlow();
+  public com.google.android.gms.tasks.Task launchReviewFlow(android.app.Activity, com.google.android.play.core.review.ReviewInfo);
+}
+
+-keep class com.google.android.play.core.review.model.ReviewErrorCode {
+    public static int NO_ERROR;
+    public static int PLAY_STORE_NOT_FOUND;
+    public static int INVALID_REQUEST;
+    public static int INTERNAL_ERROR;
+}
+
+-keep class com.google.android.play.core.review.ReviewException {
+    public int getErrorCode();
+}
+# End of content from Z:\app\proguard\review.pgcfg
+# The proguard configuration file for the following section is Z:\app\proguard\split_install.pgcfg
+# Copyright 2018 Google LLC
+#
+# The Google Play Core Library is licensed to you under the Play Core Software
+# Development Kit Terms of Service
+# (https://developer.android.com/guide/playcore/license.html).
+# By using the Google Play Core Library, you agree to the Play Core Software
+# Development Kit Terms of Service.
+# TODO(b/205494027) Update LICENSE information
+
+# Proguard Rules: Split Install API for dynamic feature modules
+
+-keep class com.google.android.play.core.missingsplits.MissingSplitsDetectingApplication { *; }
+
+-keep class com.google.android.play.core.missingsplits.MissingSplitsManager {
+    public boolean disableAppIfMissingRequiredSplits();
+    public boolean isMissingRequiredSplits();
+}
+
+-keep class com.google.android.play.core.missingsplits.MissingSplitsManagerFactory {
+    public static com.google.android.play.core.missingsplits.MissingSplitsManager create(android.content.Context);
+}
+
+-keep class com.google.android.play.core.splitcompat.SplitCompat {
+    public static boolean install(android.content.Context);
+    public static boolean installActivity(android.content.Context);
+}
+
+-keep class com.google.android.play.core.splitcompat.SplitCompatApplication {
+    protected void attachBaseContext(android.content.Context);
+}
+
+# This entry is required for frameworks to function correctly.
+-keep class com.google.android.play.core.splitinstall.InternalFrameworkListenerExtensions {
+    public static void registerFrameworkListener(android.content.Context, com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener);
+    public static void unregisterFrameworkListener(android.content.Context, com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener);
+}
+
+-keep class com.google.android.play.core.splitinstall.SplitInstallException {
+    public int getErrorCode();
+}
+
+-keep class com.google.android.play.core.splitinstall.SplitInstallHelper {
+    public static void loadLibrary(android.content.Context, java.lang.String);
+    public static void updateAppInfo(android.content.Context);
+}
+
+-keep class com.google.android.play.core.splitinstall.SplitInstallManager {
+    public abstract com.google.android.play.core.tasks.Task cancelInstall(int);
+    public abstract com.google.android.play.core.tasks.Task deferredInstall(java.util.List);
+    public abstract com.google.android.play.core.tasks.Task deferredUninstall(java.util.List);
+    public abstract com.google.android.play.core.tasks.Task deferredLanguageInstall(java.util.List);
+    public abstract com.google.android.play.core.tasks.Task deferredLanguageUninstall(java.util.List);
+    public abstract java.util.Set getInstalledLanguages();
+    public abstract java.util.Set getInstalledModules();
+    public abstract com.google.android.play.core.tasks.Task getSessionState(int);
+    public abstract com.google.android.play.core.tasks.Task getSessionStates();
+    public abstract void registerListener(com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener);
+    public abstract boolean startConfirmationDialogForResult(com.google.android.play.core.splitinstall.SplitInstallSessionState, android.app.Activity, int);
+    public abstract boolean startConfirmationDialogForResult(com.google.android.play.core.splitinstall.SplitInstallSessionState, com.google.android.play.core.common.IntentSenderForResultStarter, int);
+    public abstract com.google.android.play.core.tasks.Task startInstall(com.google.android.play.core.splitinstall.SplitInstallRequest);
+    public abstract void unregisterListener(com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener);
+}
+
+-keep class com.google.android.play.core.splitinstall.SplitInstallManagerFactory {
+    <init>();
+
+    public static com.google.android.play.core.splitinstall.SplitInstallManager create(android.content.Context);
+}
+
+-keep class com.google.android.play.core.splitinstall.SplitInstallRequest {
+    public java.util.List getLanguages();
+    public java.util.List getModuleNames();
+    public static com.google.android.play.core.splitinstall.SplitInstallRequest$Builder newBuilder();
+    public java.lang.String toString();
+}
+
+-keep class com.google.android.play.core.splitinstall.SplitInstallRequest$Builder {
+    public com.google.android.play.core.splitinstall.SplitInstallRequest$Builder addLanguage(java.util.Locale);
+    public com.google.android.play.core.splitinstall.SplitInstallRequest$Builder addModule(java.lang.String);
+    public com.google.android.play.core.splitinstall.SplitInstallRequest build();
+}
+
+-keep class com.google.android.play.core.splitinstall.SplitInstallSessionState {
+    public long bytesDownloaded();
+    public int errorCode();
+    public java.util.List moduleNames();
+    public android.app.PendingIntent resolutionIntent();
+    public int sessionId();
+    public int status();
+    public long totalBytesToDownload();
+    public java.util.List languages();
+    public static com.google.android.play.core.splitinstall.SplitInstallSessionState create(int, int, int, long, long, java.util.List, java.util.List);
+    public boolean hasTerminalStatus();
+}
+
+-keep class com.google.android.play.core.splitinstall.SplitInstallStateUpdatedListener {
+    <init>();
+
+    public void onStateUpdate(com.google.android.play.core.splitinstall.SplitInstallSessionState);
+}
+
+-keep class com.google.android.play.core.splitinstall.model.SplitInstallErrorCode {
+    public static int ACCESS_DENIED;
+    public static int ACTIVE_SESSIONS_LIMIT_EXCEEDED;
+    public static int API_NOT_AVAILABLE;
+    public static int APP_NOT_OWNED;
+    public static int INCOMPATIBLE_WITH_EXISTING_SESSION;
+    public static int INTERNAL_ERROR;
+    public static int INVALID_REQUEST;
+    public static int INSUFFICIENT_STORAGE;
+    public static int MODULE_UNAVAILABLE;
+    public static int NETWORK_ERROR;
+    public static int NO_ERROR;
+    public static int PLAY_STORE_NOT_FOUND;
+    public static int SESSION_NOT_FOUND;
+    public static int SPLITCOMPAT_COPY_ERROR;
+    public static int SPLITCOMPAT_EMULATION_ERROR;
+    public static int SPLITCOMPAT_VERIFICATION_ERROR;
+    public static int SERVICE_DIED;
+}
+
+-keep class com.google.android.play.core.splitinstall.model.SplitInstallSessionStatus {
+    public static int CANCELED;
+    public static int CANCELING;
+    public static int DOWNLOADED;
+    public static int DOWNLOADING;
+    public static int FAILED;
+    public static int INSTALLED;
+    public static int INSTALLING;
+    public static int PENDING;
+    public static int REQUIRES_USER_CONFIRMATION;
+    public static int UNKNOWN;
+}
+
+-keep class com.google.android.play.core.splitinstall.testing.FakeSplitInstallManagerFactory {
+    public static com.google.android.play.core.splitinstall.testing.FakeSplitInstallManager create(android.content.Context, java.io.File);
+    public static com.google.android.play.core.splitinstall.testing.FakeSplitInstallManager create(android.content.Context);
+    public static com.google.android.play.core.splitinstall.testing.FakeSplitInstallManager createNewInstance(android.content.Context, java.io.File);
+}
+
+-keep class com.google.android.play.core.splitinstall.testing.FakeSplitInstallManager {
+    public <init>(android.content.Context, java.io.File);
+    public void setShouldNetworkError(boolean);
+}
+
+# End of content from Z:\app\proguard\split_install.pgcfg
+# The proguard configuration file for the following section is C:\Users\selke\.gradle\caches\transforms-4\4c38132d2a8931bb08c79ebaa613a6bf\transformed\appcompat-1.2.0\proguard.txt
+# Copyright (C) 2018 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# aapt is not able to read app::actionViewClass and app:actionProviderClass to produce proguard
+# keep rules. Add a commonly used SearchView to the keep list until b/109831488 is resolved.
+-keep class androidx.appcompat.widget.SearchView { <init>(...); }
+
+# Never inline methods, but allow shrinking and obfuscation.
+-keepclassmembernames,allowobfuscation,allowshrinking class androidx.appcompat.widget.AppCompatTextViewAutoSizeHelper$Impl* {
+  <methods>;
+}
+
+# End of content from C:\Users\selke\.gradle\caches\transforms-4\4c38132d2a8931bb08c79ebaa613a6bf\transformed\appcompat-1.2.0\proguard.txt
+# The proguard configuration file for the following section is C:\Users\selke\.gradle\caches\transforms-4\0513468b54946bb9614f578a4e489de8\transformed\jetified-billing-8.0.0\proguard.txt
+# Keep the AIDL interface
+-keep class com.android.vending.billing.** { *; }
+-keep class com.google.android.apps.play.billingtestcompanion.aidl.** { *; }
+
+-dontwarn javax.annotation.**
+-dontwarn org.checkerframework.**
+-dontwarn com.google.android.apps.common.proguard.UsedByReflection
+
+-keepnames class com.android.billingclient.api.ProxyBillingActivity
+-keepnames class com.android.billingclient.api.ProxyBillingActivityV2
+
+# Avoids Proguard warning at build time due to Protobuf use of sun.misc.Unsafe
+# and libcore.io.Memory which are available at runtime.
+-dontwarn libcore.io.Memory
+-dontwarn sun.misc.Unsafe
+
+
+# For Phenotype
+# An unused P/H transitive dependency: com.google.android.libraries.phenotype.registration.PhenotypeResourceReader is stripped out from all Granular normal deps and "can't find reference..." DepsVersionCompat test warning
+# is suppressed by ProGuard -dontwarn config.
+-dontwarn com.google.android.libraries.phenotype.registration.PhenotypeResourceReader
+-dontwarn com.google.android.apps.common.proguard.SideEffectFree
+
+# Uses reflection to determine if these classes are present and has a graceful
+# fallback if they aren't. The test failure it fixes appears to be caused by flogger.
+-dontwarn dalvik.system.VMStack
+-dontwarn com.google.common.flogger.backend.google.GooglePlatform
+-dontwarn com.google.common.flogger.backend.system.DefaultPlatform
+# We keep all fields for every generated proto file as the runtime uses
+# reflection over them that ProGuard cannot detect. Without this keep
+# rule, fields may be removed that would cause runtime failures.
+-keepclassmembers class * extends com.google.android.gms.internal.play_billing.zzfi {
+  <fields>;
+}
+
+# End of content from C:\Users\selke\.gradle\caches\transforms-4\0513468b54946bb9614f578a4e489de8\transformed\jetified-billing-8.0.0\proguard.txt
+# The proguard configuration file for the following section is C:\Users\selke\.gradle\caches\transforms-4\1ee317667d8ceb0fb8f80dcfcf4a7119\transformed\jetified-play-services-auth-base-18.0.4\proguard.txt
+# We keep all fields for every generated proto file as the runtime uses
+# reflection over them that ProGuard cannot detect. Without this keep
+# rule, fields may be removed that would cause runtime failures.
+-keepclassmembers class * extends com.google.android.gms.internal.auth.zzeu {
+  <fields>;
+}
+
+# End of content from C:\Users\selke\.gradle\caches\transforms-4\1ee317667d8ceb0fb8f80dcfcf4a7119\transformed\jetified-play-services-auth-base-18.0.4\proguard.txt
+# The proguard configuration file for the following section is C:\Users\selke\.gradle\caches\transforms-4\3423a6d10d411f611215bfc4dc5e10b5\transformed\jetified-play-services-fido-20.0.1\proguard.txt
+# Methods enable and disable in this class are complained as unresolved
+# references, but they are system APIs and are not used by Fido client apps.
+-dontwarn android.nfc.NfcAdapter
+
+# End of content from C:\Users\selke\.gradle\caches\transforms-4\3423a6d10d411f611215bfc4dc5e10b5\transformed\jetified-play-services-fido-20.0.1\proguard.txt
+# The proguard configuration file for the following section is C:\Users\selke\.gradle\caches\transforms-4\774b3794f1cd10c14304934fc899ab32\transformed\jetified-play-services-drive-17.0.0\proguard.txt
+# We keep all fields for every generated proto file as the runtime uses
+# reflection over them that ProGuard cannot detect. Without this keep
+# rule, fields may be removed that would cause runtime failures.
+-keepclassmembers class * extends com.google.android.gms.internal.drive.zzkk {
+  <fields>;
+}
+
+# End of content from C:\Users\selke\.gradle\caches\transforms-4\774b3794f1cd10c14304934fc899ab32\transformed\jetified-play-services-drive-17.0.0\proguard.txt
+# The proguard configuration file for the following section is C:\Users\selke\.gradle\caches\transforms-4\91cd8d2529f1a7c8483f6a2e09a83ef1\transformed\jetified-play-services-base-18.5.0\proguard.txt
+# b/35135904 Ensure that proguard will not strip the mResultGuardian.
+-keepclassmembers class com.google.android.gms.common.api.internal.BasePendingResult {
+  com.google.android.gms.common.api.internal.BasePendingResult$ReleasableResultGuardian mResultGuardian;
+}
+
+
+
+# End of content from C:\Users\selke\.gradle\caches\transforms-4\91cd8d2529f1a7c8483f6a2e09a83ef1\transformed\jetified-play-services-base-18.5.0\proguard.txt
+# The proguard configuration file for the following section is C:\Users\selke\.gradle\caches\transforms-4\ea8a7a2ad36c0f02955ee776c97c3598\transformed\jetified-play-services-tasks-18.2.0\proguard.txt
+
+
+# End of content from C:\Users\selke\.gradle\caches\transforms-4\ea8a7a2ad36c0f02955ee776c97c3598\transformed\jetified-play-services-tasks-18.2.0\proguard.txt
+# The proguard configuration file for the following section is C:\Users\selke\.gradle\caches\transforms-4\fb44d347ef43c4c01db61438f21a65c2\transformed\jetified-play-services-basement-18.4.0\proguard.txt
+# Needed when building against pre-Marshmallow SDK.
+-dontwarn android.security.NetworkSecurityPolicy
+
+# Needed when building against Marshmallow SDK.
+-dontwarn android.app.Notification
+
+# Protobuf has references not on the Android boot classpath
+-dontwarn sun.misc.Unsafe
+-dontwarn libcore.io.Memory
+
+# Annotations used during internal SDK shrinking.
+-dontwarn com.google.android.apps.common.proguard.UsedBy*
+-dontwarn com.google.android.apps.common.proguard.SideEffectFree
+
+# Annotations referenced by the SDK but whose definitions are contained in
+# non-required dependencies.
+-dontwarn javax.annotation.**
+-dontwarn org.checkerframework.**
+-dontwarn com.google.errorprone.annotations.**
+-dontwarn org.jspecify.nullness.NullMarked
+
+# Annotations no longer exist. Suppression prevents ProGuard failures in
+# SDKs which depend on earlier versions of play-services-basement.
+-dontwarn com.google.android.gms.common.util.VisibleForTesting
+
+# Proguard flags for consumers of the Google Play services SDK
+# https://developers.google.com/android/guides/setup#add_google_play_services_to_your_project
+
+# Keep SafeParcelable NULL value, needed for reflection by DowngradeableSafeParcel
+-keepclassmembers public class com.google.android.gms.common.internal.safeparcel.SafeParcelable {
+    public static final *** NULL;
+}
+
+# Needed for Parcelable/SafeParcelable classes & their creators to not get renamed, as they are
+# found via reflection.
+-keep class com.google.android.gms.common.internal.ReflectedParcelable
+-keepnames class * implements com.google.android.gms.common.internal.ReflectedParcelable
+-keepclassmembers class * implements android.os.Parcelable {
+  public static final *** CREATOR;
+}
+
+# Keep the classes/members we need for client functionality.
+-keep @interface android.support.annotation.Keep
+-keep @androidx.annotation.Keep class *
+-keepclasseswithmembers class * {
+  @androidx.annotation.Keep <fields>;
+}
+-keepclasseswithmembers class * {
+  @androidx.annotation.Keep <methods>;
+}
+
+# Keep androidX equivalent of above android.support to allow Jetification.
+-keep @interface androidx.annotation.Keep
+-keep @androidx.annotation.Keep class *
+-keepclasseswithmembers class * {
+  @androidx.annotation.Keep <fields>;
+}
+-keepclasseswithmembers class * {
+  @androidx.annotation.Keep <methods>;
+}
+
+# Keep the names of classes/members we need for client functionality.
+-keep @interface com.google.android.gms.common.annotation.KeepName
+-keepnames @com.google.android.gms.common.annotation.KeepName class *
+-keepclassmembernames class * {
+  @com.google.android.gms.common.annotation.KeepName *;
+}
+
+# Keep Dynamite API entry points
+-keep @interface com.google.android.gms.common.util.DynamiteApi
+-keep @com.google.android.gms.common.util.DynamiteApi public class * {
+  public <fields>;
+  public <methods>;
+}
+
+
+
+# End of content from C:\Users\selke\.gradle\caches\transforms-4\fb44d347ef43c4c01db61438f21a65c2\transformed\jetified-play-services-basement-18.4.0\proguard.txt
+# The proguard configuration file for the following section is C:\Users\selke\.gradle\caches\transforms-4\6946d04df8bcbedac369f03292339ce1\transformed\media-1.0.0\proguard.txt
+# Copyright (C) 2017 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# Prevent Parcelable objects from being removed or renamed.
+-keep class android.support.v4.media.** implements android.os.Parcelable {
+    public static final android.os.Parcelable$Creator *;
+}
+
+# Prevent Parcelable objects from being removed or renamed.
+-keep class androidx.media.** implements android.os.Parcelable {
+    public static final android.os.Parcelable$Creator *;
+}
+# End of content from C:\Users\selke\.gradle\caches\transforms-4\6946d04df8bcbedac369f03292339ce1\transformed\media-1.0.0\proguard.txt
+# The proguard configuration file for the following section is C:\Users\selke\.gradle\caches\transforms-4\6cb4f1a4e2d7a49d63eacf3263be1b6d\transformed\vectordrawable-animated-1.1.0\proguard.txt
+# Copyright (C) 2016 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# keep setters in VectorDrawables so that animations can still work.
+-keepclassmembers class androidx.vectordrawable.graphics.drawable.VectorDrawableCompat$* {
+   void set*(***);
+   *** get*();
+}
+
+# End of content from C:\Users\selke\.gradle\caches\transforms-4\6cb4f1a4e2d7a49d63eacf3263be1b6d\transformed\vectordrawable-animated-1.1.0\proguard.txt
+# The proguard configuration file for the following section is C:\Users\selke\.gradle\caches\transforms-4\72e6e035001d51bdaa3dac7c2c09a4c3\transformed\coordinatorlayout-1.0.0\proguard.txt
+# Copyright (C) 2016 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+# CoordinatorLayout resolves the behaviors of its child components with reflection.
+-keep public class * extends androidx.coordinatorlayout.widget.CoordinatorLayout$Behavior {
+    public <init>(android.content.Context, android.util.AttributeSet);
+    public <init>();
+}
+
+# Make sure we keep annotations for CoordinatorLayout's DefaultBehavior and ViewPager's DecorView
+-keepattributes *Annotation*
+
+# End of content from C:\Users\selke\.gradle\caches\transforms-4\72e6e035001d51bdaa3dac7c2c09a4c3\transformed\coordinatorlayout-1.0.0\proguard.txt
+# The proguard configuration file for the following section is C:\Users\selke\.gradle\caches\transforms-4\78b0f2748f1f50d2a51da4a60afe7561\transformed\lifecycle-viewmodel-2.6.2\proguard.txt
+-keepclassmembers,allowobfuscation class * extends androidx.lifecycle.ViewModel {
+    <init>();
+}
+
+-keepclassmembers,allowobfuscation class * extends androidx.lifecycle.AndroidViewModel {
+    <init>(android.app.Application);
+}
+
+# End of content from C:\Users\selke\.gradle\caches\transforms-4\78b0f2748f1f50d2a51da4a60afe7561\transformed\lifecycle-viewmodel-2.6.2\proguard.txt
+# The proguard configuration file for the following section is C:\Users\selke\.gradle\caches\transforms-4\874c0d9ca8617ffd51ad6ff2eeb3dc0b\transformed\jetified-lifecycle-process-2.6.2\proguard.txt
+# this rule is need to work properly when app is compiled with api 28, see b/142778206
+-keepclassmembers class * extends androidx.lifecycle.EmptyActivityLifecycleCallbacks { *; }
+# End of content from C:\Users\selke\.gradle\caches\transforms-4\874c0d9ca8617ffd51ad6ff2eeb3dc0b\transformed\jetified-lifecycle-process-2.6.2\proguard.txt
+# The proguard configuration file for the following section is C:\Users\selke\.gradle\caches\transforms-4\8b2ba607ce66d61b3cbac4d59b506a88\transformed\jetified-savedstate-1.2.1\proguard.txt
+# Copyright (C) 2019 The Android Open Source Project
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+-keepclassmembers,allowobfuscation class * implements androidx.savedstate.SavedStateRegistry$AutoRecreated {
+    <init>();
+}
+
+# End of content from C:\Users\selke\.gradle\caches\transforms-4\8b2ba607ce66d61b3cbac4d59b506a88\transformed\jetified-savedstate-1.2.1\proguard.txt
+# The proguard configuration file for the following section is C:\Users\selke\.gradle\caches\transforms-4\91c03094d821fa6efa5f7286946c0c9f\transformed\lifecycle-runtime-2.6.2\proguard.txt
+-keepattributes AnnotationDefault,
+                RuntimeVisibleAnnotations,
+                RuntimeVisibleParameterAnnotations,
+                RuntimeVisibleTypeAnnotations
+
+-keepclassmembers enum androidx.lifecycle.Lifecycle$Event {
+    <fields>;
+}
+
+-keep !interface * implements androidx.lifecycle.LifecycleObserver {
+}
+
+-keep class * implements androidx.lifecycle.GeneratedAdapter {
+    <init>(...);
+}
+
+-keepclassmembers class ** {
+    @androidx.lifecycle.OnLifecycleEvent *;
+}
+
+# this rule is need to work properly when app is compiled with api 28, see b/142778206
+# Also this rule prevents registerIn from being inlined.
+-keepclassmembers class androidx.lifecycle.ReportFragment$LifecycleCallbacks { *; }
+# End of content from C:\Users\selke\.gradle\caches\transforms-4\91c03094d821fa6efa5f7286946c0c9f\transformed\lifecycle-runtime-2.6.2\proguard.txt
+# The proguard configuration file for the following section is C:\Users\selke\.gradle\caches\transforms-4\f7ed8c4f272f7e001688db113230bfba\transformed\jetified-lifecycle-viewmodel-savedstate-2.6.2\proguard.txt
+-keepclassmembers,allowobfuscation class * extends androidx.lifecycle.ViewModel {
+    <init>(androidx.lifecycle.SavedStateHandle);
+}
+
+-keepclassmembers,allowobfuscation class * extends androidx.lifecycle.AndroidViewModel {
+    <init>(android.app.Application,androidx.lifecycle.SavedStateHandle);
+}
+
+# End of content from C:\Users\selke\.gradle\caches\transforms-4\f7ed8c4f272f7e001688db113230bfba\transformed\jetified-lifecycle-viewmodel-savedstate-2.6.2\proguard.txt
+# The proguard configuration file for the following section is C:\Users\selke\.gradle\caches\transforms-4\682f385c3b103b8b0b74838af49c1f73\transformed\core-1.15.0\proguard.txt
+# Never inline methods, but allow shrinking and obfuscation.
+-keepclassmembernames,allowobfuscation,allowshrinking class androidx.core.view.ViewCompat$Api* {
+  <methods>;
+}
+-keepclassmembernames,allowobfuscation,allowshrinking class androidx.core.view.WindowInsetsCompat$*Impl* {
+  <methods>;
+}
+-keepclassmembernames,allowobfuscation,allowshrinking class androidx.core.app.NotificationCompat$*$Api*Impl {
+  <methods>;
+}
+-keepclassmembernames,allowobfuscation,allowshrinking class androidx.core.os.UserHandleCompat$Api*Impl {
+  <methods>;
+}
+-keepclassmembernames,allowobfuscation,allowshrinking class androidx.core.widget.EdgeEffectCompat$Api*Impl {
+  <methods>;
+}
+
+# End of content from C:\Users\selke\.gradle\caches\transforms-4\682f385c3b103b8b0b74838af49c1f73\transformed\core-1.15.0\proguard.txt
+# The proguard configuration file for the following section is C:\Users\selke\.gradle\caches\transforms-4\008d376f9329195e77e373b9ca06feeb\transformed\rules\lib\META-INF\com.android.tools\r8\coroutines.pro
+# When editing this file, update the following files as well:
+# - META-INF/proguard/coroutines.pro
+# - META-INF/com.android.tools/proguard/coroutines.pro
+
+# Most of volatile fields are updated with AFU and should not be mangled
+-keepclassmembers class kotlinx.coroutines.** {
+    volatile <fields>;
+}
+
+# Same story for the standard library's SafeContinuation that also uses AtomicReferenceFieldUpdater
+-keepclassmembers class kotlin.coroutines.SafeContinuation {
+    volatile <fields>;
+}
+
+# These classes are only required by kotlinx.coroutines.debug.AgentPremain, which is only loaded when
+# kotlinx-coroutines-core is used as a Java agent, so these are not needed in contexts where ProGuard is used.
+-dontwarn java.lang.instrument.ClassFileTransformer
+-dontwarn sun.misc.SignalHandler
+-dontwarn java.lang.instrument.Instrumentation
+-dontwarn sun.misc.Signal
+
+# Only used in `kotlinx.coroutines.internal.ExceptionsConstructor`.
+# The case when it is not available is hidden in a `try`-`catch`, as well as a check for Android.
+-dontwarn java.lang.ClassValue
+
+# An annotation used for build tooling, won't be directly accessed.
+-dontwarn org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement
+# End of content from C:\Users\selke\.gradle\caches\transforms-4\008d376f9329195e77e373b9ca06feeb\transformed\rules\lib\META-INF\com.android.tools\r8\coroutines.pro
+# The proguard configuration file for the following section is C:\Users\selke\.gradle\caches\transforms-4\9264c27777e80be91b131cad299a0667\transformed\rules\lib\META-INF\com.android.tools\r8-from-1.6.0\coroutines.pro
+# Allow R8 to optimize away the FastServiceLoader.
+# Together with ServiceLoader optimization in R8
+# this results in direct instantiation when loading Dispatchers.Main
+-assumenosideeffects class kotlinx.coroutines.internal.MainDispatcherLoader {
+    boolean FAST_SERVICE_LOADER_ENABLED return false;
+}
+
+-assumenosideeffects class kotlinx.coroutines.internal.FastServiceLoaderKt {
+    boolean ANDROID_DETECTED return true;
+}
+
+# Disable support for "Missing Main Dispatcher", since we always have Android main dispatcher
+-assumenosideeffects class kotlinx.coroutines.internal.MainDispatchersKt {
+    boolean SUPPORT_MISSING return false;
+}
+
+# Statically turn off all debugging facilities and assertions
+-assumenosideeffects class kotlinx.coroutines.DebugKt {
+    boolean getASSERTIONS_ENABLED() return false;
+    boolean getDEBUG() return false;
+    boolean getRECOVER_STACK_TRACES() return false;
+}
+
+# End of content from C:\Users\selke\.gradle\caches\transforms-4\9264c27777e80be91b131cad299a0667\transformed\rules\lib\META-INF\com.android.tools\r8-from-1.6.0\coroutines.pro
+# The proguard configuration file for the following section is C:\Users\selke\.gradle\caches\transforms-4\22ab40535af98e71f333a91f3f7f63e8\transformed\jetified-startup-runtime-1.1.1\proguard.txt
+# It's important that we preserve initializer names, given they are used in the AndroidManifest.xml.
+-keepnames class * extends androidx.startup.Initializer
+
+# These Proguard rules ensures that ComponentInitializers are are neither shrunk nor obfuscated,
+# and are a part of the primary dex file. This is because they are discovered and instantiated
+# during application startup.
+-keep class * extends androidx.startup.Initializer {
+    # Keep the public no-argument constructor while allowing other methods to be optimized.
+    <init>();
+}
+
+-assumenosideeffects class androidx.startup.StartupLogger { public static <methods>; }
+
+# End of content from C:\Users\selke\.gradle\caches\transforms-4\22ab40535af98e71f333a91f3f7f63e8\transformed\jetified-startup-runtime-1.1.1\proguard.txt
+# The proguard configuration file for the following section is C:\Users\selke\.gradle\caches\transforms-4\8283203b80fa64dcee6eceaa080698e2\transformed\versionedparcelable-1.1.1\proguard.txt
+-keep class * implements androidx.versionedparcelable.VersionedParcelable
+-keep public class android.support.**Parcelizer { *; }
+-keep public class androidx.**Parcelizer { *; }
+-keep public class androidx.versionedparcelable.ParcelImpl
+
+# End of content from C:\Users\selke\.gradle\caches\transforms-4\8283203b80fa64dcee6eceaa080698e2\transformed\versionedparcelable-1.1.1\proguard.txt
+# The proguard configuration file for the following section is C:\Users\selke\.gradle\caches\transforms-4\47a5fcea2f7096ee4a704632f8c955b4\transformed\jetified-transport-backend-cct-3.1.8\proguard.txt
+-dontwarn com.google.auto.value.AutoValue
+-dontwarn com.google.auto.value.AutoValue$Builder
+
+# End of content from C:\Users\selke\.gradle\caches\transforms-4\47a5fcea2f7096ee4a704632f8c955b4\transformed\jetified-transport-backend-cct-3.1.8\proguard.txt
+# The proguard configuration file for the following section is C:\Users\selke\.gradle\caches\transforms-4\23cd6b841396811302305eb07dd0ea12\transformed\jetified-transport-api-3.0.0\proguard.txt
+-dontwarn com.google.auto.value.AutoValue
+-dontwarn com.google.auto.value.AutoValue$Builder
+
+# End of content from C:\Users\selke\.gradle\caches\transforms-4\23cd6b841396811302305eb07dd0ea12\transformed\jetified-transport-api-3.0.0\proguard.txt
+# The proguard configuration file for the following section is C:\Users\selke\.gradle\caches\transforms-4\8a9a3366f0eb9e75f0edae6ef7079d9c\transformed\jetified-firebase-encoders-json-18.0.0\proguard.txt
+
+# End of content from C:\Users\selke\.gradle\caches\transforms-4\8a9a3366f0eb9e75f0edae6ef7079d9c\transformed\jetified-firebase-encoders-json-18.0.0\proguard.txt
+# The proguard configuration file for the following section is C:\Users\selke\.gradle\caches\transforms-4\443d25223a2ccd7c1cb96a66056467fa\transformed\rules\lib\META-INF\proguard\androidx-annotations.pro
+-keep,allowobfuscation @interface androidx.annotation.Keep
+-keep @androidx.annotation.Keep class * {*;}
+
+-keepclasseswithmembers class * {
+    @androidx.annotation.Keep <methods>;
+}
+
+-keepclasseswithmembers class * {
+    @androidx.annotation.Keep <fields>;
+}
+
+-keepclasseswithmembers class * {
+    @androidx.annotation.Keep <init>(...);
+}
+
+-keepclassmembers,allowobfuscation class * {
+  @androidx.annotation.DoNotInline <methods>;
+}
+
+# End of content from C:\Users\selke\.gradle\caches\transforms-4\443d25223a2ccd7c1cb96a66056467fa\transformed\rules\lib\META-INF\proguard\androidx-annotations.pro
+# The proguard configuration file for the following section is Z:\app\build\intermediates\aapt_proguard_file\release\processReleaseResources\aapt_rules.txt
+-keep class androidx.core.app.CoreComponentFactory { <init>(); }
+-keep class androidx.profileinstaller.ProfileInstallReceiver { <init>(); }
+-keep class androidx.startup.InitializationProvider { <init>(); }
+-keep class com.SelkeStudios.FlickeringLight.AlarmReceiver { <init>(); }
+-keep class com.SelkeStudios.FlickeringLight.DownloaderActivity { <init>(); }
+-keep class com.SelkeStudios.FlickeringLight.OBBDownloaderService { <init>(); }
+-keep class com.android.billingclient.api.ProxyBillingActivity { <init>(); }
+-keep class com.android.billingclient.api.ProxyBillingActivityV2 { <init>(); }
+-keep class com.epicgames.unreal.CellularReceiver { <init>(); }
+-keep class com.epicgames.unreal.GameActivity { <init>(); }
+-keep class com.epicgames.unreal.GameApplication { <init>(); }
+-keep class com.epicgames.unreal.LocalNotificationReceiver { <init>(); }
+-keep class com.epicgames.unreal.MulticastBroadcastReceiver { <init>(); }
+-keep class com.epicgames.unreal.psoservices.OGLProgramService { <init>(); }
+-keep class com.epicgames.unreal.psoservices.OGLProgramService1 { <init>(); }
+-keep class com.epicgames.unreal.psoservices.OGLProgramService2 { <init>(); }
+-keep class com.epicgames.unreal.psoservices.OGLProgramService3 { <init>(); }
+-keep class com.epicgames.unreal.psoservices.OGLProgramService4 { <init>(); }
+-keep class com.epicgames.unreal.psoservices.OGLProgramService5 { <init>(); }
+-keep class com.epicgames.unreal.psoservices.OGLProgramService6 { <init>(); }
+-keep class com.epicgames.unreal.psoservices.OGLProgramService7 { <init>(); }
+-keep class com.epicgames.unreal.psoservices.VulkanProgramService { <init>(); }
+-keep class com.epicgames.unreal.psoservices.VulkanProgramService1 { <init>(); }
+-keep class com.epicgames.unreal.psoservices.VulkanProgramService2 { <init>(); }
+-keep class com.epicgames.unreal.psoservices.VulkanProgramService3 { <init>(); }
+-keep class com.epicgames.unreal.psoservices.VulkanProgramService4 { <init>(); }
+-keep class com.epicgames.unreal.psoservices.VulkanProgramService5 { <init>(); }
+-keep class com.epicgames.unreal.psoservices.VulkanProgramService6 { <init>(); }
+-keep class com.epicgames.unreal.psoservices.VulkanProgramService7 { <init>(); }
+-keep class com.google.android.datatransport.runtime.backends.TransportBackendDiscovery { <init>(); }
+-keep class com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver { <init>(); }
+-keep class com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService { <init>(); }
+-keep class com.google.android.gms.auth.api.signin.RevocationBoundService { <init>(); }
+-keep class com.google.android.gms.auth.api.signin.internal.SignInHubActivity { <init>(); }
+-keep class com.google.android.gms.common.api.GoogleApiActivity { <init>(); }
+-keep class com.google.android.gms.games.internal.v2.resolution.GamesResolutionActivity { <init>(); }
+-keep class com.google.android.gms.games.provider.PlayGamesInitProvider { <init>(); }
+-keep class android.widget.Space { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.appcompat.app.AlertController$RecycleListView { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.appcompat.view.menu.ActionMenuItemView { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.appcompat.view.menu.ExpandedMenuView { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.appcompat.view.menu.ListMenuItemView { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.appcompat.widget.ActionBarContainer { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.appcompat.widget.ActionBarContextView { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.appcompat.widget.ActionBarOverlayLayout { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.appcompat.widget.ActionMenuView { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.appcompat.widget.ActivityChooserView$InnerLayout { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.appcompat.widget.AlertDialogLayout { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.appcompat.widget.ButtonBarLayout { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.appcompat.widget.ContentFrameLayout { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.appcompat.widget.DialogTitle { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.appcompat.widget.FitWindowsFrameLayout { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.appcompat.widget.FitWindowsLinearLayout { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.appcompat.widget.SearchView$SearchAutoComplete { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.appcompat.widget.Toolbar { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.appcompat.widget.ViewStubCompat { <init>(android.content.Context, android.util.AttributeSet); }
+
+-keep class androidx.core.widget.NestedScrollView { <init>(android.content.Context, android.util.AttributeSet); }
+
+
+# End of content from Z:\app\build\intermediates\aapt_proguard_file\release\processReleaseResources\aapt_rules.txt
+# The proguard configuration file for the following section is Z:\app\build\intermediates\generated_proguard_file\release\mergeReleaseGeneratedProguardFiles\proguard.txt
+# Generated keep rule for Lifecycle observer adapter.
+-if class com.epicgames.unreal.GameApplication {
+    <init>(...);
+}
+-keep class com.epicgames.unreal.GameApplication_LifecycleAdapter {
+    <init>(...);
+}
+
+# End of content from Z:\app\build\intermediates\generated_proguard_file\release\mergeReleaseGeneratedProguardFiles\proguard.txt
+# The proguard configuration file for the following section is <unknown>
+
+# End of content from <unknown>

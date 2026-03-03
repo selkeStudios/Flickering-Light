@@ -1,0 +1,4 @@
+Plugins\Runtime\AndroidPermission\Source\AndroidPermission\AndroidPermission_APL.xml
+Plugins\Runtime\GooglePAD\Source\GooglePAD\GooglePAD_APL.xml
+Source\Runtime\Core\Core_APL.xml
+Source\Runtime\Online\Voice\AndroidVoiceImpl_UPL.xml
